@@ -1,5 +1,5 @@
 # sandbox for VSCode Remote Containers and shellspec and minio on circleci
-
+[![inokappa](https://circleci.com/gh/inokappa/vscode-remote-container-sandbox.svg?style=svg)](https://circleci.com/gh/inokappa/vscode-remote-container-sandbox)
 ## About
 
 * VSCode の Remote Containers 機能を触ってみました
