@@ -3,6 +3,8 @@
 ## About
 
 * VSCode の Remote Containers 機能を触ってみました
+* shellspec を色々と弄ってみました
+* minio を CircleCI のジョブの中で動かしてみました
 
 ## Files
 

@@ -1,5 +1,11 @@
 sample1() {
-  echo "Hello ${1}!"
+  arg=""
+  if [ -n "${1}" ];then
+    arg="${1}"
+    echo "Hello ${1}!"
+  else
+    echo "Hello world!"
+  fi
 }
 
 sample2() {
