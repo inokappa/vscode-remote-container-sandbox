@@ -58,3 +58,13 @@ jobs:
           command: |
             cd src/sample
             shellspec -s bash --format document
+
+workflows:
+  version: 2
+  shellspec-test:
+    jobs:
+      - shellspec-test:
+          filters:
+            branches:
+              only:
+                - master
