@@ -1,0 +1,15 @@
+{
+  "name": "shellspec workspace (debian:latest)",
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+  ],
+  "service": "base",
+  "workspaceFolder": "/work",
+  "extensions": [
+    "ms-ceintl.vscode-language-pack-ja",
+    "timonwong.shellcheck",
+    "vscodevim.vim",
+    "mads-hartmann.bash-ide-vscode",
+    "valmack.circleci-config-validator"
+  ]
+}

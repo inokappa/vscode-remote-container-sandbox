@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  base:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    tty: true
+    volumes:
+      - .:/work
+    environment:
+      AWS_ACCESS_KEY_ID: EXAMPLEKEY123
+      AWS_SECRET_ACCESS_KEY: EXAMPLESECRET123456
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_REGION: us-east-1
+      AWS_ENDPOINT: http://minio:9000
+      AWS_DISABLE_SSL: 'true'
+      PARAM_BUCKET: 'example-bucket'
+    command: [ bash ]
+  minio:
+    image: minio/minio:latest
+    environment:
+      MINIO_ACCESS_KEY: EXAMPLEKEY123
+      MINIO_SECRET_KEY: EXAMPLESECRET123456
+    command: ['server', '/data']

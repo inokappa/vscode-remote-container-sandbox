@@ -1,0 +1,60 @@
+version: 2.1
+
+commands:
+  install_base_dependencies:
+      steps:
+        - run:
+            name: Install Dependencies
+            command: |
+              sudo apt-get update && sudo apt-get install -y curl git
+  install_shellspec:
+      steps:
+        - run:
+            name: Install shellspec
+            command: |
+              curl -fsSL https://git.io/shellspec | sh -s -- --yes
+  install_awscli:
+      steps:
+        - run:
+            name: Install awscli
+            command: |
+              curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+                unzip awscliv2.zip && \
+                sudo ./aws/install
+  install_minio_client:
+      steps:
+        - run:
+            name: Install minio client
+            command: |
+              mkdir ${HOME}/bin && \
+                curl -sSL https://dl.minio.io/client/mc/release/linux-amd64/mc -o ${HOME}/bin/mc && \
+                chmod +x ${HOME}/bin/mc
+
+jobs:
+  shellspec-test:
+    docker:
+      - image: cimg/base:stable
+        environment:
+          AWS_ACCESS_KEY_ID: EXAMPLEKEY123
+          AWS_SECRET_ACCESS_KEY: EXAMPLESECRET123456
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_REGION: us-east-1
+          AWS_ENDPOINT: http://minio:9000
+          AWS_DISABLE_SSL: true
+      - image: minio/minio:latest
+        name: minio
+        environment:
+          MINIO_ACCESS_KEY: EXAMPLEKEY123
+          MINIO_SECRET_KEY: EXAMPLESECRET123456
+        command: ["server", "/data"]
+    steps:
+      - checkout
+      - install_base_dependencies
+      - install_shellspec
+      - install_awscli
+      - install_minio_client
+      - run:
+          name: Run shellspec test
+          command: |
+            cd src/sample
+            shellspec -s bash --format document
