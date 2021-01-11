@@ -41,6 +41,7 @@ jobs:
           AWS_REGION: us-east-1
           AWS_ENDPOINT: http://minio:9000
           AWS_DISABLE_SSL: true
+          PARAM_BUCKET: 'example-bucket'
       - image: minio/minio:latest
         name: minio
         environment:
